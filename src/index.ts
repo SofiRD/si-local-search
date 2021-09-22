@@ -292,6 +292,18 @@ const graph: GraphNode = {
   ],
 };
 
+function randomArrayShuffle(array: GraphNode[]) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
 function beam(
   node: GraphNode,
   k: number,
@@ -299,7 +311,12 @@ function beam(
   currentPath: string[] = []
 ): string[] {
   const nextPath = [...currentPath, node.id];
-
+    
+  //poner la lista de nodos posibles en un arreglo llamado options para revolver el arreglo
+  var options: GraphNode[] = []
+  options = randomArrayShuffle(options)
+    
+    
   if (node.id === goal) {
     return nextPath;
   }
